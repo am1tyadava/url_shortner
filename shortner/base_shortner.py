@@ -17,19 +17,10 @@ class BaseShortener(object):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
 
-    def _get(self, url, params=None):
-        response = requests.get(
-            url, params=params,
-            verify=self.kwargs.get('verify', True),
-            timeout=self.kwargs['timeout']
-        )
-        return response
-
     def _post(self, url, data=None, params=None, headers=None):
         response = requests.post(
             url, data=data, params=params,
             headers=headers,
-            verify=self.kwargs.get('verify', True),
             timeout=self.kwargs['timeout']
         )
         return response
@@ -44,9 +35,6 @@ class BaseShortener(object):
             return response.url
         raise ExpandingException('There was an error expanding this url - {0}'.format(
             response.content))
-
-    def total_clicks(self, url=None):
-        raise NotImplementedError
 
     @classmethod
     def __subclasshook__(cls, C):
