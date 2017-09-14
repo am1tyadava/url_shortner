@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <form class="form-signin" method="post" action=".">
+    {% if error %}
+        <p>Oops! You have found a dead link - {{ encoded_url }}</p>
+    {% endif %}
+    <form class="form-signin" method="post" action="{% url 'shorten_url' %}">
+        {% csrf_token %}
         <h2 class="form-signin-heading">Please enter url</h2>
         <label for="inputUrl" class="sr-only">URL</label>
-        <input name="url" type="url" id="inputEmail" class="form-control" placeholder="http://" required="" autofocus="">
+        <input value="{{ url }}" name="url" type="url" id="inputEmail" class="form-control" placeholder="http://" required="" autofocus="">
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Shorten</button>
     </form>
+
+    {% if shorten_url %}
+        <hr>
+        <h3>Please find the shorten url</h3>
+        <p><a target="_blank" href="{{ shorten_url }}">{{ shorten_url }}</a></p>
+    {% endif %}
 {% endblock main_content %}
 
