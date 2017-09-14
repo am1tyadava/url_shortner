@@ -1,13 +1,13 @@
+from django.conf import settings
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from django.conf import settings
-from amityadav_url_shortner.services import convert_to_base_62
+from amityadav_url_shortner.services import convert_to_base_62, convert_to_base_10
 from utils.misc import is_valid_url
 from .models import WebUrl
 
 
-class WebUrlSerializer(serializers.Serializer):
+class WebUrlShortnerSerializer(serializers.Serializer):
     def create(self, validated_data):
         obj, _ = WebUrl.objects.get_or_create(**validated_data)
         return obj
@@ -32,4 +32,22 @@ class WebUrlSerializer(serializers.Serializer):
 
         return {
             'url': url
+        }
+
+
+class WebUrlExpanderSerializer(serializers.Serializer):
+    url = serializers.URLField()
+
+    def to_representation(self, instance):
+        url = instance
+        encoded_hash = url.split("/")[-1]
+        db_id = convert_to_base_10(encoded_hash)
+        try:
+            web_url_obj = WebUrl.objects.get(id=db_id)
+            expanded_url = web_url_obj.url
+        except WebUrl.DoesNotExist:
+            raise ValidationError("URL %s does not exists in out database" % url)
+
+        return {
+            'url': expanded_url
         }
