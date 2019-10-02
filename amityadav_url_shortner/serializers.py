@@ -8,6 +8,9 @@ from .models import WebUrl
 
 
 class WebUrlShortnerSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
     def create(self, validated_data):
         obj, _ = WebUrl.objects.get_or_create(**validated_data)
         return obj
@@ -36,6 +39,12 @@ class WebUrlShortnerSerializer(serializers.Serializer):
 
 
 class WebUrlExpanderSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
     url = serializers.URLField()
 
     def to_representation(self, instance):

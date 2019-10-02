@@ -6,6 +6,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
 from shortner.url_ly import UrlLy
+from shortner.bit_ly import BitLy
 
 
 # Create your views here.
@@ -21,6 +22,7 @@ class ShortenUrlView(View):
         url = request.POST.get("url")
         urlly = UrlLy()
         shorten_url = urlly.short(url)
+        # shorten_url = BitLy().short(url)
         context = {
             'shorten_url': shorten_url,
             'url': url
@@ -34,6 +36,7 @@ class ExpandUrlView(View):
         urlly = UrlLy()
         try:
             main_url = urlly.expand(encoded_url)
+            # main_url = BitLy().expand(encoded_url)
             return HttpResponseRedirect(main_url)
         except:
             context = {

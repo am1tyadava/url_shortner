@@ -33,8 +33,7 @@ class BaseShortener(object):
         response = self._get(url)
         if response.ok:
             return response.url
-        raise ExpandingException('There was an error expanding this url - {0}'.format(
-            response.content))
+        raise ExpandingException('There was an error expanding this url - {0}'.format(response.content))
 
     @classmethod
     def __subclasshook__(cls, C):

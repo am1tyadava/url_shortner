@@ -21,6 +21,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('amityadav_url_shortner.urls')),
+    url('^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'', include('web.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
