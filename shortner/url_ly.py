@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from base_shortner import BaseShortener
+from .base_shortner import BaseShortener
 from shortner.exceptions import ShorteningException, ExpandingException
 
 

@@ -138,9 +138,9 @@ STATICFILES_DIRS = (
 
 ENV_MODE = os.getenv("MODE", "DEVELOPMENT")
 if ENV_MODE == "PRODUCTION":
-    from prod_settings import *
+    from .prod_settings import *
 elif ENV_MODE == "TESTING":
-    from test_settings import *
+    from .test_settings import *
 else:
-    from dev_settings import *
-from local_settings import *
+    from .dev_settings import *
+from .local_settings import *

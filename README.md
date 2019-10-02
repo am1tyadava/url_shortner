@@ -26,7 +26,7 @@ No, not yet
 ---
 
 # Installation and demo
-
+    # Python 3 is required
     git clone git@github.com:am1tyadava/url_shortner.git
     cd url_shortner
     pip install -r requirements.txt
